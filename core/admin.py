@@ -1,4 +1,8 @@
 from django.contrib import admin
-from .models import Page
+from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
+from .models import User
 
-admin.site.register(Page)
+
+@admin.register(User)
+class UserAdmin(DefaultUserAdmin):
+    pass
