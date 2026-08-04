@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
-from .models import HomepageSection, SiteSettings, User, WebsitePage
+from .models import HomepageSection, NewsItem, SiteSettings, User, WebsitePage
 
 
 @admin.register(User)
@@ -15,6 +15,23 @@ class WebsitePageAdmin(admin.ModelAdmin):
     search_fields = ('title', 'slug', 'navigation_title', 'hero_title', 'content')
     ordering = ('display_order', 'title')
     prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(NewsItem)
+class NewsItemAdmin(admin.ModelAdmin):
+    list_display = ('title', 'published', 'featured', 'publish_date')
+    list_filter = ('published', 'featured')
+    search_fields = ('title', 'slug', 'summary', 'content')
+    ordering = ('-publish_date', '-created_at', 'title')
+    prepopulated_fields = {'slug': ('title',)}
+    fieldsets = (
+        ('Content', {
+            'fields': ('title', 'slug', 'summary', 'content', 'featured_image'),
+        }),
+        ('Publishing', {
+            'fields': ('published', 'featured', 'publish_date'),
+        }),
+    )
 
 
 @admin.register(HomepageSection)

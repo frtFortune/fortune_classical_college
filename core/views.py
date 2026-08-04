@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import HomepageSection, WebsitePage
+from .models import HomepageSection, NewsItem, WebsitePage
 
 
 def _get_homepage_sections():
@@ -63,8 +63,20 @@ def admissions(request):
     return render(request, 'admissions.html', _get_page(request, 'admissions'))
 
 
-def news(request):
-    return render(request, 'news.html')
+def news_list(request):
+    items = NewsItem.objects.filter(published=True).order_by('-publish_date', '-created_at', 'title')
+    featured_items = items.filter(featured=True)[:3]
+    context = {
+        'items': items,
+        'featured_items': featured_items,
+    }
+    return render(request, 'news/list.html', context)
+
+
+def news_detail(request, slug):
+    item = NewsItem.objects.filter(slug=slug, published=True).first()
+    context = {'item': item}
+    return render(request, 'news/detail.html', context)
 
 
 def faq(request):

@@ -76,6 +76,32 @@ class HomepageSection(models.Model):
         return self.title or self.get_section_type_display()
 
 
+class NewsItem(models.Model):
+    title = models.CharField(max_length=250, verbose_name='Title', help_text='Heading for the news or event item.')
+    slug = models.SlugField(max_length=250, unique=True, blank=True, verbose_name='Slug', help_text='Unique URL-friendly identifier for this item.')
+    summary = models.CharField(max_length=400, blank=True, verbose_name='Summary', help_text='Short summary shown on the news listing.')
+    content = models.TextField(blank=True, verbose_name='Content', help_text='Full body content for the article or announcement.')
+    featured_image = models.FileField(upload_to='news/', blank=True, null=True, verbose_name='Featured image', help_text='Optional image or attachment for the item.')
+    published = models.BooleanField(default=False, verbose_name='Published', help_text='Only published items appear publicly.')
+    featured = models.BooleanField(default=False, verbose_name='Featured', help_text='Featured items can be highlighted on the news page.')
+    publish_date = models.DateTimeField(blank=True, null=True, verbose_name='Publish date', help_text='Date and time the item should be considered published.')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-publish_date', '-created_at', 'title']
+        verbose_name = 'News Item'
+        verbose_name_plural = 'News Items'
+
+    def __str__(self):
+        return self.title or self.slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+
 class SiteSettings(models.Model):
     school_name = models.CharField(
         max_length=200,

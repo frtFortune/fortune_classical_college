@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ item.title|default:'News Item' }}{% endblock %}
+
+{% block content %}
+    <main id="main-content" class="site-main">
+        {% if item %}
+            <article>
+                <h2>{{ item.title }}</h2>
+                {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+                {% if item.publish_date %}<p>{{ item.publish_date|date:'d M Y' }}</p>{% endif %}
+                {% if item.content %}<div>{{ item.content|linebreaksbr }}</div>{% endif %}
+            </article>
+            <p><a href="{% url 'news_list' %}">Back to all news</a></p>
+        {% else %}
+            <h2>News item not found</h2>
+            <p>The requested item is not available yet.</p>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -55,6 +55,10 @@ At the global level, the website uses a singleton SiteSettings model to power sh
 
 For page-specific public content, the project now also uses a WebsitePage model. This allows editable content for pages such as About, Admissions, FAQ, and Contact to be managed through the admin rather than hardcoded into templates.
 
+For the homepage, the project uses HomepageSection records so different content blocks can be published and ordered independently without changing template markup. This supports a simple CMS-like workflow for landing-page sections while keeping the implementation lightweight.
+
+For public news and announcements, the project now uses a NewsItem model. NewsItem is designed for future announcements, school updates, and event notices so that the public website can grow without introducing separate content systems for each type of update. It sits alongside SiteSettings for global branding and contact data, WebsitePage for page-level content, and HomepageSection for homepage composition.
+
 This keeps the public site extensible and avoids hardcoded school-wide information in templates while still allowing page-specific content to be updated cleanly.
 
 ## Template-Based Content

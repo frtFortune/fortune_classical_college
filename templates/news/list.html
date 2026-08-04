@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}News & Events{% endblock %}
+
+{% block content %}
+    <main id="main-content" class="site-main">
+        <section aria-labelledby="news-list-title">
+            <h2 id="news-list-title">News & Events</h2>
+            <p>Updates, announcements, and community highlights will appear here.</p>
+
+            {% if featured_items %}
+                <section aria-labelledby="featured-news-title">
+                    <h3 id="featured-news-title">Featured Items</h3>
+                    <ul>
+                        {% for item in featured_items %}
+                            <li>
+                                <h4><a href="{% url 'news_detail' slug=item.slug %}">{{ item.title }}</a></h4>
+                                {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endif %}
+
+            {% if items %}
+                <ul>
+                    {% for item in items %}
+                        <li>
+                            <h3><a href="{% url 'news_detail' slug=item.slug %}">{{ item.title }}</a></h3>
+                            {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+                            {% if item.publish_date %}<p>{{ item.publish_date|date:'d M Y' }}</p>{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No published news items are available yet.</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}
