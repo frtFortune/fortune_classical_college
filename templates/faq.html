@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}FAQ{% endblock %}
+{% block title %}{% if page_title %}{{ page_title }}{% else %}FAQ{% endif %}{% endblock %}
 
 {% block content %}
-    <h2>FAQ Page</h2>
+    <h2>{% if hero_title %}{{ hero_title }}{% else %}FAQ Page{% endif %}</h2>
+    {% if hero_subtitle %}
+        <p>{{ hero_subtitle }}</p>
+    {% endif %}
+    {% if content %}
+        <div>{{ content|linebreaksbr }}</div>
+    {% else %}
+        <p>Placeholder content for this page will appear here once a website page entry is created.</p>
+    {% endif %}
 {% endblock %}

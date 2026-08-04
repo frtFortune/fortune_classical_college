@@ -53,7 +53,9 @@ At the global level, the website uses a singleton SiteSettings model to power sh
 - default SEO metadata
 - optional logo, favicon, and hero image
 
-This keeps the public site extensible and avoids hardcoded school-wide information in templates.
+For page-specific public content, the project now also uses a WebsitePage model. This allows editable content for pages such as About, Admissions, FAQ, and Contact to be managed through the admin rather than hardcoded into templates.
+
+This keeps the public site extensible and avoids hardcoded school-wide information in templates while still allowing page-specific content to be updated cleanly.
 
 ## Template-Based Content
 

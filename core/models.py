@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.text import slugify
 
 
 class UserRole(models.TextChoices):
@@ -14,6 +15,34 @@ class User(AbstractUser):
         choices=UserRole.choices,
         default=UserRole.STUDENT,
     )
+
+
+class WebsitePage(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Title', help_text='The page title shown in the admin and on the public page when used.')
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug', help_text='Unique URL-friendly identifier for this page.')
+    navigation_title = models.CharField(max_length=100, blank=True, verbose_name='Navigation title', help_text='Short title used in navigation when needed.')
+    hero_title = models.CharField(max_length=250, blank=True, verbose_name='Hero title', help_text='Main headline for the page hero section.')
+    hero_subtitle = models.CharField(max_length=400, blank=True, verbose_name='Hero subtitle', help_text='Supporting text shown beneath the hero title.')
+    content = models.TextField(blank=True, verbose_name='Page content', help_text='Main editable body content for this page.')
+    seo_title = models.CharField(max_length=200, blank=True, verbose_name='SEO title', help_text='Optional browser and search title override.')
+    seo_description = models.CharField(max_length=300, blank=True, verbose_name='SEO description', help_text='Optional meta description for this page.')
+    published = models.BooleanField(default=False, verbose_name='Published', help_text='Only published pages should appear publicly.')
+    display_order = models.PositiveIntegerField(default=0, verbose_name='Display order', help_text='Controls ordering for page lists and navigation.')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['display_order', 'title']
+        verbose_name = 'Website Page'
+        verbose_name_plural = 'Website Pages'
+
+    def __str__(self):
+        return self.title or self.slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
 
 class SiteSettings(models.Model):

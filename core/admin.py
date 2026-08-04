@@ -1,11 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
-from .models import SiteSettings, User
+from .models import SiteSettings, User, WebsitePage
 
 
 @admin.register(User)
 class UserAdmin(DefaultUserAdmin):
     pass
+
+
+@admin.register(WebsitePage)
+class WebsitePageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'navigation_title', 'published', 'display_order')
+    list_filter = ('published',)
+    search_fields = ('title', 'slug', 'navigation_title', 'hero_title', 'content')
+    ordering = ('display_order', 'title')
+    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(SiteSettings)
