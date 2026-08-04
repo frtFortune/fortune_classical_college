@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% if site_settings and site_settings.school_name %}{{ site_settings.school_name }}{% else %}School Website{% endif %}{% endblock %}</title>
+</head>
+<body>
+    <!-- TODO: Add notice banner here -->
+    <header>
+        <h1>{% if site_settings and site_settings.school_name %}{{ site_settings.school_name }}{% else %}School Name Placeholder{% endif %}</h1>
+        {% if site_settings and site_settings.motto %}
+            <p>{{ site_settings.motto }}</p>
+        {% else %}
+            <p>Motto placeholder</p>
+        {% endif %}
+        <!-- TODO: Add header contact information and branding area -->
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'academics' %}">Academics</a>
+            <a href="{% url 'admissions' %}">Admissions</a>
+            <a href="{% url 'news' %}">News</a>
+            <a href="{% url 'faq' %}">FAQ</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'login' %}">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- TODO: Add footer contact information -->
+        <!-- TODO: Add social links -->
+        <!-- TODO: Add floating AI chatbot button -->
+        <p>{% if site_settings and site_settings.footer_text %}{{ site_settings.footer_text }}{% else %}Footer placeholder{% endif %}</p>
+        {% if site_settings and site_settings.primary_phone %}
+            <p>Phone: {{ site_settings.primary_phone }}</p>
+        {% endif %}
+        {% if site_settings and site_settings.email %}
+            <p>Email: {{ site_settings.email }}</p>
+        {% endif %}
+    </footer>
+</body>
+</html>
