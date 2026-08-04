@@ -1,0 +1,33 @@
+<footer class="site-footer" role="contentinfo">
+    <div>
+        <h2>Contact</h2>
+        <p>
+            {% if site_settings and site_settings.school_name %}
+                {{ site_settings.school_name }}
+            {% else %}
+                School Name Placeholder
+            {% endif %}
+        </p>
+        <p>{% if site_settings and site_settings.email %}{{ site_settings.email }}{% else %}Email placeholder{% endif %}</p>
+        <p>{% if site_settings and site_settings.primary_phone %}{{ site_settings.primary_phone }}{% else %}Phone placeholder{% endif %}</p>
+    </div>
+
+    <div>
+        <h2>Quick Links</h2>
+        <ul>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'academics' %}">Academics</a></li>
+            <li><a href="{% url 'admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Social</h2>
+        <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">YouTube</a></li>
+        </ul>
+    </div>
+</footer>

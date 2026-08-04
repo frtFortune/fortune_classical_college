@@ -1,0 +1,23 @@
+<header class="site-header" role="banner">
+    <div class="site-header__top-bar" aria-label="School notice">
+        <p>School notice placeholder. This banner can later display important announcements.</p>
+    </div>
+
+    <div class="site-header__main">
+        <a class="site-header__brand" href="{% url 'home' %}">
+            {% if site_settings and site_settings.short_name %}
+                {{ site_settings.short_name }}
+            {% else %}
+                School Name Placeholder
+            {% endif %}
+        </a>
+
+        <p class="site-header__tagline">
+            {% if site_settings and site_settings.motto %}
+                {{ site_settings.motto }}
+            {% else %}
+                School motto placeholder
+            {% endif %}
+        </p>
+    </div>
+</header>

@@ -1,0 +1,8 @@
+<section class="hero" aria-labelledby="hero-title">
+    <div>
+        <p class="hero__eyebrow">Public Website Placeholder</p>
+        <h2 id="hero-title">{% if site_settings and site_settings.hero_title %}{{ site_settings.hero_title }}{% else %}Welcome to our school{% endif %}</h2>
+        <p>{% if site_settings and site_settings.hero_subtitle %}{{ site_settings.hero_subtitle }}{% else %}This hero section will later display the school’s prominent welcome message and key call to action.{% endif %}</p>
+        <p>[Hero Image Placeholder]</p>
+    </div>
+</section>

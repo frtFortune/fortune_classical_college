@@ -1,0 +1,33 @@
+<nav class="site-nav" aria-label="Primary navigation">
+    <ul class="site-nav__list">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li>
+            <a href="{% url 'about' %}">About</a>
+            <ul class="site-nav__sublist" aria-label="About submenu">
+                <li><a href="#">History</a></li>
+                <li><a href="#">Vision &amp; Mission</a></li>
+                <li><a href="#">Leadership</a></li>
+                <li><a href="#">Facilities</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{% url 'academics' %}">Academics</a>
+            <ul class="site-nav__sublist" aria-label="Academics submenu">
+                <li><a href="#">Academic Programme</a></li>
+                <li><a href="#">Results Portal</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{% url 'admissions' %}">Admissions</a>
+            <ul class="site-nav__sublist" aria-label="Admissions submenu">
+                <li><a href="#">Admission Process</a></li>
+                <li><a href="#">Fees</a></li>
+                <li><a href="#">Apply Online</a></li>
+            </ul>
+        </li>
+        <li><a href="{% url 'news' %}">News &amp; Events</a></li>
+        <li><a href="{% url 'faq' %}">FAQ</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    </ul>
+</nav>

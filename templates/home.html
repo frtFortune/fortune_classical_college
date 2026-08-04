@@ -3,5 +3,68 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h2>Home Page</h2>
+    <main id="main-content" class="site-main">
+        {% include 'includes/hero.html' %}
+
+        <section class="welcome" aria-labelledby="welcome-title">
+            {% include 'includes/section_heading.html' with title='Welcome' subtitle='A placeholder welcome message for the school homepage.' %}
+            <p>Welcome to our school. This section will later host the school’s introduction, values, and community message.</p>
+        </section>
+
+        <section class="highlights" aria-labelledby="highlights-title">
+            {% include 'includes/section_heading.html' with title='School Highlights' subtitle='Key areas of the school experience.' %}
+            <div class="highlights__grid">
+                {% include 'includes/feature_card.html' with title='Student Success' description='Placeholder summary for student achievement and growth.' %}
+                {% include 'includes/feature_card.html' with title='Safe Learning Environment' description='Placeholder summary for wellbeing and community support.' %}
+                {% include 'includes/feature_card.html' with title='Future-Ready Learning' description='Placeholder summary for academic innovation and preparation.' %}
+            </div>
+        </section>
+
+        <section class="why-choose-us" aria-labelledby="why-choose-us-title">
+            {% include 'includes/section_heading.html' with title='Why Choose Us' subtitle='Placeholder reasons families may choose the school.' %}
+            <p>[School Building Image Placeholder]</p>
+            <ul>
+                <li>Placeholder point about academic excellence.</li>
+                <li>Placeholder point about supportive teaching.</li>
+                <li>Placeholder point about enriching student experiences.</li>
+            </ul>
+        </section>
+
+        <section class="programmes" aria-labelledby="programmes-title">
+            {% include 'includes/section_heading.html' with title='Academic Programmes Preview' subtitle='A preview of the academic offer.' %}
+            <div class="programmes__grid">
+                {% include 'includes/feature_card.html' with title='Academic Programme' description='Placeholder summary for the school’s academic offer.' %}
+                {% include 'includes/feature_card.html' with title='Results Portal' description='Placeholder summary for student results and reporting access.' %}
+            </div>
+        </section>
+
+        <section class="facilities" aria-labelledby="facilities-title">
+            {% include 'includes/section_heading.html' with title='Facilities Preview' subtitle='A preview of the school environment.' %}
+            <p>[Laboratory Image Placeholder]</p>
+            <p>[Library Image Placeholder]</p>
+            <p>[Student Activity Image Placeholder]</p>
+        </section>
+
+        <section class="news" aria-labelledby="news-title">
+            {% include 'includes/section_heading.html' with title='Latest News Preview' subtitle='Upcoming news and announcements placeholder.' %}
+            <div class="news__grid">
+                {% include 'includes/news_card.html' with title='School Event Placeholder' summary='This news card will later display a real announcement.' %}
+                {% include 'includes/news_card.html' with title='Community Update Placeholder' summary='This card can later show a recent school update.' %}
+            </div>
+        </section>
+
+        {% include 'includes/call_to_action.html' with title='Admissions' description='Placeholder admissions prompt for families who want to learn more.' action_text='Learn more' url='/admissions/' %}
+
+        <section class="faq-preview" aria-labelledby="faq-preview-title">
+            {% include 'includes/section_heading.html' with title='FAQ Preview' subtitle='Placeholder frequently asked questions preview.' %}
+            <p>Placeholder FAQ content will appear here once the content model is populated.</p>
+        </section>
+
+        <section class="contact-preview" aria-labelledby="contact-preview-title">
+            {% include 'includes/section_heading.html' with title='Contact Preview' subtitle='Placeholder contact information for the public website.' %}
+            <p>Contact details will later be pulled from the site settings model.</p>
+        </section>
+
+        <!-- TODO: Add floating AI chatbot button only on public pages. -->
+    </main>
 {% endblock %}
