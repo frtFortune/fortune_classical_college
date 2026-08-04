@@ -45,6 +45,37 @@ class WebsitePage(models.Model):
         super().save(*args, **kwargs)
 
 
+class HomepageSection(models.Model):
+    class SectionType(models.TextChoices):
+        WELCOME = 'WELCOME', 'Welcome'
+        HIGHLIGHTS = 'HIGHLIGHTS', 'Highlights'
+        WHY_CHOOSE_US = 'WHY_CHOOSE_US', 'Why Choose Us'
+        PROGRAMMES = 'PROGRAMMES', 'Programmes'
+        FACILITIES = 'FACILITIES', 'Facilities'
+        CTA = 'CTA', 'Call to Action'
+        FAQ_PREVIEW = 'FAQ_PREVIEW', 'FAQ Preview'
+        CONTACT_PREVIEW = 'CONTACT_PREVIEW', 'Contact Preview'
+
+    title = models.CharField(max_length=200, verbose_name='Title', help_text='Heading for the section.')
+    subtitle = models.CharField(max_length=300, blank=True, verbose_name='Subtitle', help_text='Optional supporting line for this section.')
+    body = models.TextField(blank=True, verbose_name='Body', help_text='Main textual content for the section.')
+    button_text = models.CharField(max_length=100, blank=True, verbose_name='Button text', help_text='Optional call-to-action button label.')
+    button_url = models.CharField(max_length=300, blank=True, verbose_name='Button URL', help_text='Optional destination for the call-to-action button.')
+    section_type = models.CharField(max_length=30, choices=SectionType.choices, verbose_name='Section type', help_text='Type of section this content belongs to on the homepage.')
+    display_order = models.PositiveIntegerField(default=0, verbose_name='Display order', help_text='Controls the order of this section on the homepage.')
+    published = models.BooleanField(default=False, verbose_name='Published', help_text='Only published sections appear on the public homepage.')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['display_order', 'title']
+        verbose_name = 'Homepage Section'
+        verbose_name_plural = 'Homepage Sections'
+
+    def __str__(self):
+        return self.title or self.get_section_type_display()
+
+
 class SiteSettings(models.Model):
     school_name = models.CharField(
         max_length=200,

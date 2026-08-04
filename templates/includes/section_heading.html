@@ -1,5 +1,5 @@
 <div class="section-heading">
-    <h2>{{ title }}</h2>
+    <h2{% if id_suffix %} id="section-heading-{{ id_suffix }}"{% endif %}>{{ title }}</h2>
     {% if subtitle %}
         <p>{{ subtitle }}</p>
     {% endif %}

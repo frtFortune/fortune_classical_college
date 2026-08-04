@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
-from .models import SiteSettings, User, WebsitePage
+from .models import HomepageSection, SiteSettings, User, WebsitePage
 
 
 @admin.register(User)
@@ -15,6 +15,22 @@ class WebsitePageAdmin(admin.ModelAdmin):
     search_fields = ('title', 'slug', 'navigation_title', 'hero_title', 'content')
     ordering = ('display_order', 'title')
     prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(HomepageSection)
+class HomepageSectionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'section_type', 'published', 'display_order')
+    list_filter = ('published', 'section_type')
+    search_fields = ('title', 'subtitle', 'body', 'button_text')
+    ordering = ('display_order', 'title')
+    fieldsets = (
+        ('Content', {
+            'fields': ('title', 'subtitle', 'body', 'section_type', 'published', 'display_order'),
+        }),
+        ('Call to Action', {
+            'fields': ('button_text', 'button_url'),
+        }),
+    )
 
 
 @admin.register(SiteSettings)

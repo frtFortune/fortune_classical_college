@@ -1,10 +1,43 @@
 from django.shortcuts import render
 
-from .models import WebsitePage
+from .models import HomepageSection, WebsitePage
+
+
+def _get_homepage_sections():
+    sections = HomepageSection.objects.filter(published=True).order_by('display_order', 'title')
+    grouped = {
+        'welcome': [],
+        'highlights': [],
+        'why_choose_us': [],
+        'programmes': [],
+        'facilities': [],
+        'cta': [],
+        'faq_preview': [],
+        'contact_preview': [],
+    }
+    for section in sections:
+        if section.section_type == HomepageSection.SectionType.WELCOME:
+            grouped['welcome'].append(section)
+        elif section.section_type == HomepageSection.SectionType.HIGHLIGHTS:
+            grouped['highlights'].append(section)
+        elif section.section_type == HomepageSection.SectionType.WHY_CHOOSE_US:
+            grouped['why_choose_us'].append(section)
+        elif section.section_type == HomepageSection.SectionType.PROGRAMMES:
+            grouped['programmes'].append(section)
+        elif section.section_type == HomepageSection.SectionType.FACILITIES:
+            grouped['facilities'].append(section)
+        elif section.section_type == HomepageSection.SectionType.CTA:
+            grouped['cta'].append(section)
+        elif section.section_type == HomepageSection.SectionType.FAQ_PREVIEW:
+            grouped['faq_preview'].append(section)
+        elif section.section_type == HomepageSection.SectionType.CONTACT_PREVIEW:
+            grouped['contact_preview'].append(section)
+    return grouped
 
 
 def home(request):
-    return render(request, 'home.html')
+    context = {'homepage_sections': _get_homepage_sections()}
+    return render(request, 'home.html', context)
 
 
 def _get_page(request, slug):
