@@ -2,31 +2,41 @@
 
 ## Purpose
 
-The public website templates are now organized around reusable include-based components so the homepage and other public pages can evolve without duplicating markup.
+The public website templates are organized around reusable include-based components so the homepage, informational public pages, and news views can evolve without duplicating markup.
 
 ## Reusable partials
 
-The following partials are available in the templates/includes directory:
+The following partials are available in the `templates/includes` directory:
 
-- header.html
-- navigation.html
-- footer.html
-- hero.html
-- section_heading.html
-- feature_card.html
-- news_card.html
-- call_to_action.html
+- `header.html`: Site header shell with branding and top actions.
+- `navigation.html`: Accessible main navigation links.
+- `footer.html`: Global footer text, contact details, social links, and quick links.
+- `hero.html`: Homepage hero banner section.
+- `page_hero.html`: Page hero header for informational public pages (About, Academics, Admissions, FAQ, Contact).
+- `page_content.html`: Page body wrapper rendering database content or placeholder fallback text.
+- `section_heading.html`: Section heading component with accessible aria labelling.
+- `feature_card.html`: Reusable feature preview card.
+- `news_card.html`: Reusable news item card component supporting custom heading levels, publication dates, and detail links.
+- `call_to_action.html`: Reusable Call-to-Action banner component.
 
-These components provide the foundation for a scalable public website layout while remaining simple and maintainable.
+## Page Usage
+
+- **Informational Pages (`about.html`, `academics.html`, `admissions.html`, `faq.html`, `contact.html`)**:
+  Extend `base.html` and utilize `page_hero.html` and `page_content.html` to eliminate duplicated hero and body placeholder markup.
+- **News List (`news/list.html`)**:
+  Uses `news_card.html` for rendering featured and general news announcements.
+- **Homepage (`home.html`)**:
+  Uses `hero.html`, `section_heading.html`, `feature_card.html`, and `call_to_action.html`.
 
 ## Design goals
 
 - Keep the public website as the primary product.
 - Keep the portal separate and untouched by the public template architecture.
 - Use semantic HTML5 structure and accessible navigation.
-- Use placeholders until real content is available.
-- Prepare templates for future data from SiteSettings, WebsitePage, News, Announcements, and academic models.
+- Maintain the current placeholder policy.
+- Prepare templates for future data from `SiteSettings`, `WebsitePage`, `NewsItem`, and academic models.
 
 ## Future extension path
 
-The current structure is intentionally lightweight. As the project grows, these partials can be extended or replaced with richer data-driven components without rewriting the whole site shell.
+The current structure is intentionally lightweight. As the project grows, these partials can be extended or styled without rewriting page-level template shells or duplicating HTML structures.
+

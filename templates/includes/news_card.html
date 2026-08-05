@@ -1,5 +1,12 @@
 <article class="news-card">
-    <h3>{{ title }}</h3>
-    <p>{{ summary }}</p>
-    <p><a href="#">Read more placeholder</a></p>
+    <{{ heading_level|default:'h3' }}>
+        {% if url %}
+            <a href="{{ url }}">{{ title }}</a>
+        {% else %}
+            {{ title }}
+        {% endif %}
+    </{{ heading_level|default:'h3' }}>
+    {% if summary %}<p>{{ summary }}</p>{% endif %}
+    {% if publish_date %}<p>{{ publish_date|date:'d M Y' }}</p>{% endif %}
 </article>
+

@@ -14,8 +14,8 @@
                     <ul>
                         {% for item in featured_items %}
                             <li>
-                                <h4><a href="{% url 'news_detail' slug=item.slug %}">{{ item.title }}</a></h4>
-                                {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+                                {% url 'news_detail' slug=item.slug as item_url %}
+                                {% include 'includes/news_card.html' with title=item.title summary=item.summary url=item_url heading_level='h4' %}
                             </li>
                         {% endfor %}
                     </ul>
@@ -26,9 +26,8 @@
                 <ul>
                     {% for item in items %}
                         <li>
-                            <h3><a href="{% url 'news_detail' slug=item.slug %}">{{ item.title }}</a></h3>
-                            {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
-                            {% if item.publish_date %}<p>{{ item.publish_date|date:'d M Y' }}</p>{% endif %}
+                            {% url 'news_detail' slug=item.slug as item_url %}
+                            {% include 'includes/news_card.html' with title=item.title summary=item.summary publish_date=item.publish_date url=item_url heading_level='h3' %}
                         </li>
                     {% endfor %}
                 </ul>
@@ -38,3 +37,4 @@
         </section>
     </main>
 {% endblock %}
+

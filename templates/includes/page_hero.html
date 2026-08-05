@@ -1,0 +1,6 @@
+<header class="page-hero">
+    <h2>{% if hero_title %}{{ hero_title }}{% else %}{{ default_title|default:'Page' }}{% endif %}</h2>
+    {% if hero_subtitle %}
+        <p>{{ hero_subtitle }}</p>
+    {% endif %}
+</header>

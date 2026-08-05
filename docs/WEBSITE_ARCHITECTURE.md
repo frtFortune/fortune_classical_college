@@ -63,12 +63,13 @@ This keeps the public site extensible and avoids hardcoded school-wide informati
 
 ## Template-Based Content
 
-Some content will remain layout and template driven for now, including:
+Some content remains layout and template-driven, structured via reusable include partials in `templates/includes/`:
 
-- Site shell and navigation
-- Basic page structure
-- Global footer placeholders
-- Reusable page sections and placeholders
+- Site shell, navigation, header, and footer (`header.html`, `navigation.html`, `footer.html`)
+- Page headers and content wrappers (`page_hero.html`, `page_content.html`)
+- Section headings and card components (`section_heading.html`, `feature_card.html`, `news_card.html`, `call_to_action.html`)
+- Global footer placeholders and reusable section partials
+
 
 ## Future Notes
 
