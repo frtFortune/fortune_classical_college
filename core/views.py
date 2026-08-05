@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import HomepageSection, NewsItem, WebsitePage
 
@@ -16,22 +16,9 @@ def _get_homepage_sections():
         'contact_preview': [],
     }
     for section in sections:
-        if section.section_type == HomepageSection.SectionType.WELCOME:
-            grouped['welcome'].append(section)
-        elif section.section_type == HomepageSection.SectionType.HIGHLIGHTS:
-            grouped['highlights'].append(section)
-        elif section.section_type == HomepageSection.SectionType.WHY_CHOOSE_US:
-            grouped['why_choose_us'].append(section)
-        elif section.section_type == HomepageSection.SectionType.PROGRAMMES:
-            grouped['programmes'].append(section)
-        elif section.section_type == HomepageSection.SectionType.FACILITIES:
-            grouped['facilities'].append(section)
-        elif section.section_type == HomepageSection.SectionType.CTA:
-            grouped['cta'].append(section)
-        elif section.section_type == HomepageSection.SectionType.FAQ_PREVIEW:
-            grouped['faq_preview'].append(section)
-        elif section.section_type == HomepageSection.SectionType.CONTACT_PREVIEW:
-            grouped['contact_preview'].append(section)
+        key = section.section_type.lower()
+        if key in grouped:
+            grouped[key].append(section)
     return grouped
 
 
@@ -40,7 +27,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def _get_page(request, slug):
+def _get_page_context(slug):
     page = WebsitePage.objects.filter(slug=slug, published=True).first()
     return {
         'page': page,
@@ -52,15 +39,15 @@ def _get_page(request, slug):
 
 
 def about(request):
-    return render(request, 'about.html', _get_page(request, 'about'))
+    return render(request, 'about.html', _get_page_context('about'))
 
 
 def academics(request):
-    return render(request, 'academics.html')
+    return render(request, 'academics.html', _get_page_context('academics'))
 
 
 def admissions(request):
-    return render(request, 'admissions.html', _get_page(request, 'admissions'))
+    return render(request, 'admissions.html', _get_page_context('admissions'))
 
 
 def news_list(request):
@@ -74,18 +61,20 @@ def news_list(request):
 
 
 def news_detail(request, slug):
-    item = NewsItem.objects.filter(slug=slug, published=True).first()
+    item = get_object_or_404(NewsItem, slug=slug, published=True)
     context = {'item': item}
     return render(request, 'news/detail.html', context)
 
 
 def faq(request):
-    return render(request, 'faq.html', _get_page(request, 'faq'))
+    return render(request, 'faq.html', _get_page_context('faq'))
 
 
 def contact(request):
-    return render(request, 'contact.html', _get_page(request, 'contact'))
+    return render(request, 'contact.html', _get_page_context('contact'))
 
 
 def login_view(request):
     return render(request, 'login.html')
+
+

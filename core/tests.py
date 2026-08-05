@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
-from .models import HomepageSection, NewsItem, UserRole
+from .models import HomepageSection, NewsItem, UserRole, WebsitePage
 
 
 class UserRoleTests(SimpleTestCase):
@@ -60,3 +60,26 @@ class NewsItemTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Student Showcase')
         self.assertContains(response, 'The full story goes here.')
+
+    def test_news_detail_returns_404_for_missing_or_unpublished_item(self):
+        NewsItem.objects.create(
+            title='Draft News',
+            content='Draft text',
+            published=False,
+            slug='draft-news',
+        )
+
+        response_draft = self.client.get(reverse('news_detail', kwargs={'slug': 'draft-news'}))
+        self.assertEqual(response_draft.status_code, 404)
+
+        response_missing = self.client.get(reverse('news_detail', kwargs={'slug': 'non-existent'}))
+        self.assertEqual(response_missing.status_code, 404)
+
+
+class WebsitePageTests(TestCase):
+    def test_academics_page_renders_with_placeholder_fallback(self):
+        response = self.client.get(reverse('academics'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Academics Page')
+
+
