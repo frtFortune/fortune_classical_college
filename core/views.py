@@ -1,6 +1,11 @@
 from django.shortcuts import get_object_or_404, render
 
-from .models import HomepageSection, NewsItem, WebsitePage
+from .models import (
+    HomepageSection,
+    NewsItem,
+    StaffProfile,
+    WebsitePage,
+)
 
 
 def _get_homepage_sections():
@@ -23,8 +28,28 @@ def _get_homepage_sections():
 
 
 def home(request):
-    context = {'homepage_sections': _get_homepage_sections()}
-    return render(request, 'home.html', context)
+    management_team = (
+        StaffProfile.objects
+        .filter(
+            published=True,
+            is_management=True,
+        )
+        .order_by(
+            "display_order",
+            "full_name",
+        )
+    )
+
+    context = {
+        "homepage_sections": _get_homepage_sections(),
+        "management_team": management_team,
+    }
+
+    return render(
+        request,
+        "home.html",
+        context,
+    )
 
 
 def _get_page_context(slug):
