@@ -61,7 +61,9 @@ class HomepageSectionAdmin(admin.ModelAdmin):
 class StaffProfileAdmin(admin.ModelAdmin):
     list_display = (
         "full_name",
-        "position",
+        "role",
+        "is_management",
+        "management_position",
         "featured",
         "published",
         "display_order",
@@ -70,11 +72,13 @@ class StaffProfileAdmin(admin.ModelAdmin):
     list_filter = (
         "published",
         "featured",
+        "is_management",
     )
 
     search_fields = (
         "full_name",
-        "position",
+        "role",
+        "management_position",
         "biography",
         "email",
     )
@@ -87,6 +91,48 @@ class StaffProfileAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ("full_name",),
     }
+
+    fieldsets = (
+        (
+            "Identity",
+            {
+                "fields": (
+                    "full_name",
+                    "slug",
+                    "role",
+                ),
+            },
+        ),
+        (
+            "Management",
+            {
+                "fields": (
+                    "is_management",
+                    "management_position",
+                ),
+            },
+        ),
+        (
+            "Profile",
+            {
+                "fields": (
+                    "biography",
+                    "photo",
+                    "email",
+                ),
+            },
+        ),
+        (
+            "Website",
+            {
+                "fields": (
+                    "featured",
+                    "published",
+                    "display_order",
+                ),
+            },
+        ),
+    )
 
     
 @admin.register(SiteSettings)

@@ -231,10 +231,23 @@ class StaffProfile(models.Model):
         help_text="Unique URL-friendly identifier generated from the staff member's name.",
     )
 
-    position = models.CharField(
+    role = models.CharField(
         max_length=150,
-        verbose_name="Position",
-        help_text="Leadership or staff position displayed publicly.",
+        verbose_name="Role",
+        help_text="The staff member's role within the school (for example: Teacher, Librarian, Accountant).",
+    )
+
+    is_management = models.BooleanField(
+        default=False,
+        verbose_name="Management team",
+        help_text="Indicates whether this staff member should appear on the public management page.",
+    )
+
+    management_position = models.CharField(
+        max_length=150,
+        blank=True,
+        verbose_name="Management position",
+        help_text="Management title displayed publicly (for example: Principal or Vice Principal). Leave blank for non-management staff.",
     )
 
     biography = models.TextField(
