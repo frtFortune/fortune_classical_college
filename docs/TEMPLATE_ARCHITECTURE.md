@@ -8,10 +8,10 @@ The public website templates are organized around reusable include-based compone
 
 The following partials are available in the `templates/includes` directory:
 
-- `header.html`: Site header shell with branding and top actions.
+- `header.html`: Site header shell with branding and top actions. Retrieves school branding from SiteSettings.
 - `navigation.html`: Accessible main navigation links.
-- `footer.html`: Global footer text, contact details, social links, and quick links.
-- `hero.html`: Homepage hero banner section.
+- `footer.html`: Global footer text, contact details, social links, and quick links. Retrieves global contact details, footer text, and social links from SiteSettings.
+- `hero.html`: Homepage hero banner section. Retrieves hompage hero title, subtitle, and hero image from SiteSettings.
 - `page_hero.html`: Page hero header for informational public pages (About, Academics, Admissions, FAQ, Contact).
 - `page_content.html`: Page body wrapper rendering database content or placeholder fallback text.
 - `section_heading.html`: Section heading component with accessible aria labelling.

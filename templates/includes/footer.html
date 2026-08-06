@@ -4,12 +4,20 @@
         <p>
             {% if site_settings and site_settings.school_name %}
                 {{ site_settings.school_name }}
+            {% elif site_settings and site_settings.short_name %}
+                {{ site_settings.short_name }}
             {% else %}
-                School Name Placeholder
+                School Name
             {% endif %}
         </p>
         <p>{% if site_settings and site_settings.email %}{{ site_settings.email }}{% else %}Email placeholder{% endif %}</p>
         <p>{% if site_settings and site_settings.primary_phone %}{{ site_settings.primary_phone }}{% else %}Phone placeholder{% endif %}</p>
+        {% if site_settings and site_settings.address %}
+            <p>{{ site_settings.address|linebreaksbr }}</p>
+        {% endif %}
+        {% if site_settings and site_settings.office_hours %}
+            <p>{{ site_settings.office_hours }}</p>
+        {% endif %}
     </div>
 
     <div>
@@ -22,12 +30,43 @@
         </ul>
     </div>
 
+    {% if site_settings and site_settings.facebook_url or site_settings and site_settings.instagram_url or site_settings and site_settings.x_url or site_settings and site_settings.youtube_url or site_settings and site_settings.linkedin_url %}
     <div>
         <h2>Social</h2>
         <ul>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">YouTube</a></li>
+            {% if site_settings.facebook_url %}
+                <li>
+                    <a href="{{ site_settings.facebook_url }}">Facebook</a>
+                </li>
+            {% endif %}
+
+            {% if site_settings.instagram_url %}
+                <li>
+                    <a href="{{ site_settings.instagram_url }}">Instagram</a>
+                </li>
+            {% endif %}
+
+            {% if site_settings.x_url %}
+                <li>
+                    <a href="{{ site_settings.x_url }}">X</a>
+                </li>
+            {% endif %}
+
+            {% if site_settings.youtube_url %}
+                <li>
+                    <a href="{{ site_settings.youtube_url }}">YouTube</a>
+                </li>
+            {% endif %}
+
+            {% if site_settings.linkedin_url %}
+                <li>
+                    <a href="{{ site_settings.linkedin_url }}">LinkedIn</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
+    {% endif %}
+    {% if site_settings and site_settings.footer_text %}
+        <p>{{ site_settings.footer_text }}</p>
+    {% endif %}
 </footer>

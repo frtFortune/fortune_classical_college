@@ -62,7 +62,6 @@ For public news and announcements, the project now uses a NewsItem model. NewsIt
 This keeps the public site extensible and avoids hardcoded school-wide information in templates while still allowing page-specific content to be updated cleanly.
 
 ## Template-Based Content
-
 Some content remains layout and template-driven, structured via reusable include partials in `templates/includes/`:
 
 - Site shell, navigation, header, and footer (`header.html`, `navigation.html`, `footer.html`)
@@ -76,3 +75,17 @@ Some content remains layout and template-driven, structured via reusable include
 - Public-facing content should be easy to manage through the admin area later.
 - Dynamic content should be introduced gradually rather than hardcoded into templates.
 - Authentication, role-based access, and portal-specific functionality are out of scope for this foundation phase.
+
+
+### Global Site Settings
+
+The public website header retrieves its branding from the global `SiteSettings` model through a Django context processor.
+
+Current fields used:
+
+- school_name
+- short_name
+- motto
+- logo (when available)
+
+Templates should always provide graceful fallbacks when no SiteSettings record has been configured.
