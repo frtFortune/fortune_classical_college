@@ -1,12 +1,38 @@
 <article class="news-card">
-    <{{ heading_level|default:'h3' }}>
-        {% if url %}
-            <a href="{{ url }}">{{ title }}</a>
-        {% else %}
-            {{ title }}
-        {% endif %}
-    </{{ heading_level|default:'h3' }}>
-    {% if summary %}<p>{{ summary }}</p>{% endif %}
-    {% if publish_date %}<p>{{ publish_date|date:'d M Y' }}</p>{% endif %}
-</article>
 
+    {% if item.featured_image %}
+        <img
+            src="{{ item.featured_image.url }}"
+            alt="{{ item.title }}"
+            class="news-card__image">
+    {% endif %}
+
+    <div class="news-card__content">
+
+        <h3 class="news-card__title">
+            <a href="{% url 'news_detail' item.slug %}">
+                {{ item.title }}
+            </a>
+        </h3>
+
+        {% if item.publish_date %}
+            <p class="news-card__date">
+                {{ item.publish_date|date:"F j, Y" }}
+            </p>
+        {% endif %}
+
+        {% if item.summary %}
+            <p class="news-card__summary">
+                {{ item.summary }}
+            </p>
+        {% endif %}
+
+        <a
+            href="{% url 'news_detail' item.slug %}"
+            class="news-card__link">
+            Read More →
+        </a>
+
+    </div>
+
+</article>

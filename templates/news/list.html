@@ -1,40 +1,50 @@
 {% extends 'base.html' %}
 
-{% block title %}News & Events{% endblock %}
+{% block title %}News{% endblock %}
 
 {% block content %}
-    <main id="main-content" class="site-main">
-        <section aria-labelledby="news-list-title">
-            <h2 id="news-list-title">News & Events</h2>
-            <p>Updates, announcements, and community highlights will appear here.</p>
 
-            {% if featured_items %}
-                <section aria-labelledby="featured-news-title">
-                    <h3 id="featured-news-title">Featured Items</h3>
-                    <ul>
-                        {% for item in featured_items %}
-                            <li>
-                                {% url 'news_detail' slug=item.slug as item_url %}
-                                {% include 'includes/news_card.html' with title=item.title summary=item.summary url=item_url heading_level='h4' %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </section>
-            {% endif %}
+<section class="page-hero">
+    <div class="container">
+        <h1>School News</h1>
+        <p>Latest announcements, events, and updates from our school community.</p>
+    </div>
+</section>
 
-            {% if items %}
-                <ul>
-                    {% for item in items %}
-                        <li>
-                            {% url 'news_detail' slug=item.slug as item_url %}
-                            {% include 'includes/news_card.html' with title=item.title summary=item.summary publish_date=item.publish_date url=item_url heading_level='h3' %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No published news items are available yet.</p>
-            {% endif %}
-        </section>
-    </main>
+{% if featured_items %}
+<section class="featured-news">
+    <div class="container">
+
+        <h2>Featured News</h2>
+
+        <div class="featured-news__grid">
+            {% for item in featured_items %}
+                {% include 'includes/news_card.html' %}
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endif %}
+
+<section class="news-list">
+    <div class="container">
+
+        <h2>All News</h2>
+
+        {% if items %}
+            <div class="news-list__grid">
+
+                {% for item in items %}
+                    {% include 'includes/news_card.html' %}
+                {% endfor %}
+
+            </div>
+        {% else %}
+            <p>No news has been published yet.</p>
+        {% endif %}
+
+    </div>
+</section>
+
 {% endblock %}
-
