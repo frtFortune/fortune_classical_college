@@ -1,6 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
-from .models import HomepageSection, NewsItem, SiteSettings, User, WebsitePage
+from .models import (
+    HomepageSection, 
+    NewsItem, 
+    SiteSettings,
+    StaffProfile, 
+    User, 
+    WebsitePage,
+)
 
 
 @admin.register(User)
@@ -50,6 +57,38 @@ class HomepageSectionAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(StaffProfile)
+class StaffProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "full_name",
+        "position",
+        "featured",
+        "published",
+        "display_order",
+    )
+
+    list_filter = (
+        "published",
+        "featured",
+    )
+
+    search_fields = (
+        "full_name",
+        "position",
+        "biography",
+        "email",
+    )
+
+    ordering = (
+        "display_order",
+        "full_name",
+    )
+
+    prepopulated_fields = {
+        "slug": ("full_name",),
+    }
+
+    
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     fieldsets = (

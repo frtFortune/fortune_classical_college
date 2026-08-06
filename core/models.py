@@ -215,3 +215,78 @@ class SiteSettings(models.Model):
         if SiteSettings.objects.exists():
             raise ValueError('Only one SiteSettings record can be created.')
         super().save(*args, **kwargs)
+
+class StaffProfile(models.Model):
+    full_name = models.CharField(
+        max_length=200,
+        verbose_name="Full name",
+        help_text="Full name displayed on the public website.",
+    )
+
+    slug = models.SlugField(
+        max_length=220,
+        unique=True,
+        blank=True,
+        verbose_name="Slug",
+        help_text="Unique URL-friendly identifier generated from the staff member's name.",
+    )
+
+    position = models.CharField(
+        max_length=150,
+        verbose_name="Position",
+        help_text="Leadership or staff position displayed publicly.",
+    )
+
+    biography = models.TextField(
+        blank=True,
+        verbose_name="Biography",
+        help_text="Short biography or profile shown on the public website.",
+    )
+
+    photo = models.ImageField(
+        upload_to="staff/",
+        blank=True,
+        null=True,
+        verbose_name="Photo",
+        help_text="Optional profile photograph.",
+    )
+
+    email = models.EmailField(
+        blank=True,
+        verbose_name="Email address",
+        help_text="Optional public contact email.",
+    )
+
+    display_order = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Display order",
+        help_text="Lower values appear first.",
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        verbose_name="Featured",
+        help_text="Featured staff may appear on the homepage.",
+    )
+
+    published = models.BooleanField(
+        default=False,
+        verbose_name="Published",
+        help_text="Only published staff profiles appear on the public website.",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["display_order", "full_name"]
+        verbose_name = "Staff Profile"
+        verbose_name_plural = "Staff Profiles"
+
+    def __str__(self):
+        return f"{self.full_name} ({self.position})"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.full_name)
+        super().save(*args, **kwargs)
