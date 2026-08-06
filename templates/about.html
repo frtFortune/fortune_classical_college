@@ -1,9 +1,48 @@
 {% extends 'base.html' %}
 
-{% block title %}{% if page_title %}{{ page_title }}{% else %}About{% endif %}{% endblock %}
+{% block title %}
+    {% if page_title %}
+        {{ page_title }}
+    {% else %}
+        About
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     {% include 'includes/page_hero.html' with default_title='About Page' %}
-    {% include 'includes/page_content.html' %}
-{% endblock %}
 
+    {% include 'includes/page_content.html' %}
+
+    {% if management_team %}
+        <section class="management-team" aria-labelledby="management-team-title">
+            {% include 'includes/section_heading.html' with title='School Management' subtitle='Meet the leadership team guiding our school.' %}
+
+            <div class="management-team__grid">
+                {% for member in management_team %}
+                    <article class="management-card">
+
+                        {% if member.photo %}
+                            <img
+                                src="{{ member.photo.url }}"
+                                alt="{{ member.full_name }}"
+                                class="management-card__photo">
+                        {% else %}
+                            <div class="management-card__photo-placeholder">
+                                Photo Coming Soon
+                            </div>
+                        {% endif %}
+
+                        <h3>{{ member.full_name }}</h3>
+
+                        <p>{{ member.management_position }}</p>
+
+                        {% if member.biography %}
+                            <p>{{ member.biography }}</p>
+                        {% endif %}
+
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
+from django.contrib.auth.models import Group
 from .models import (
     HomepageSection, 
     NewsItem, 
@@ -9,10 +10,26 @@ from .models import (
     WebsitePage,
 )
 
+# Unregister Group if registered
+admin.site.unregister(Group)
 
 @admin.register(User)
 class UserAdmin(DefaultUserAdmin):
-    pass
+    list_display = ('username', 'email', 'first_name', 'last_name', 'role', 'is_staff')
+    list_filter = ('role', 'is_staff', 'is_active')
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    
+    fieldsets = DefaultUserAdmin.fieldsets + (
+        ('Role', {
+            'fields': ('role',),
+        }),
+    )
+    
+    add_fieldsets = DefaultUserAdmin.add_fieldsets + (
+        ('Role', {
+            'fields': ('role',),
+        }),
+    )
 
 
 @admin.register(WebsitePage)

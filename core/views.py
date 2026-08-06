@@ -84,11 +84,13 @@ def about(request):
 
 
 def academics(request):
-    return render(request, 'academics.html', _get_page_context('academics'))
+    context = _get_page_context('academics')
+    return render(request, 'academics.html', context)
 
 
 def admissions(request):
-    return render(request, 'admissions.html', _get_page_context('admissions'))
+    context = _get_page_context('admissions')
+    return render(request, 'admissions.html', context)
 
 
 def news_list(request):
@@ -108,11 +110,13 @@ def news_detail(request, slug):
 
 
 def faq(request):
-    return render(request, 'faq.html', _get_page_context('faq'))
+    context = _get_page_context('faq')
+    return render(request, 'faq.html', context)
 
 
 def contact(request):
-    return render(request, 'contact.html', _get_page_context('contact'))
+    context = _get_page_context('contact')
+    return render(request, 'contact.html', context)
 
 
 def login_view(request):
