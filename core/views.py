@@ -64,7 +64,23 @@ def _get_page_context(slug):
 
 
 def about(request):
-    return render(request, 'about.html', _get_page_context('about'))
+    context = _get_page_context("about")
+
+    context["management_team"] = (
+        StaffProfile.objects.filter(
+            published=True,
+            is_management=True,
+        ).order_by(
+            "display_order",
+            "full_name",
+        )
+    )
+
+    return render(
+        request,
+        "about.html",
+        context,
+    )
 
 
 def academics(request):
