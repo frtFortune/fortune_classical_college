@@ -1,20 +1,46 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ item.title|default:'News Item' }}{% endblock %}
+{% block title %}{{ item.title|default:"News" }}{% endblock %}
 
 {% block content %}
-    <main id="main-content" class="site-main">
-        {% if item %}
-            <article>
-                <h2>{{ item.title }}</h2>
-                {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
-                {% if item.publish_date %}<p>{{ item.publish_date|date:'d M Y' }}</p>{% endif %}
-                {% if item.content %}<div>{{ item.content|linebreaksbr }}</div>{% endif %}
-            </article>
-            <p><a href="{% url 'news_list' %}">Back to all news</a></p>
-        {% else %}
-            <h2>News item not found</h2>
-            <p>The requested item is not available yet.</p>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>{{ item.title }}</h1>
+
+        {% if item.publish_date %}
+            <p>{{ item.publish_date|date:"F j, Y" }}</p>
         {% endif %}
-    </main>
+    </div>
+</section>
+
+<section class="news-detail">
+    <div class="container">
+
+        {% if item.featured_image %}
+            <img
+                src="{{ item.featured_image.url }}"
+                alt="{{ item.title }}"
+                class="news-detail__image">
+        {% endif %}
+
+        {% if item.summary %}
+            <p class="news-detail__summary">
+                {{ item.summary }}
+            </p>
+        {% endif %}
+
+        <div class="news-detail__content">
+            {{ item.content|linebreaks }}
+        </div>
+
+        <p class="news-detail__back">
+            <a href="{% url 'news_list' %}">
+                ← Back to all news
+            </a>
+        </p>
+
+    </div>
+</section>
+
 {% endblock %}
