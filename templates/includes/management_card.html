@@ -1,0 +1,24 @@
+<article class="management-card">
+    {% if member.photo %}
+        <img
+            src="{{ member.photo.url }}"
+            alt="{{ member.full_name }}"
+            class="management-card__photo">
+    {% else %}
+        <div class="management-card__photo-placeholder">
+            Photo Coming Soon
+        </div>
+    {% endif %}
+
+    <h3>{{ member.full_name }}</h3>
+
+    <p>
+        <strong>{{ member.management_position }}</strong>
+    </p>
+
+    {% if member.biography %}
+        <p class="management-card__biography">
+            {{ member.biography }}
+        </p>
+    {% endif %}
+</article>
