@@ -89,3 +89,16 @@ Current fields used:
 - logo (when available)
 
 Templates should always provide graceful fallbacks when no SiteSettings record has been configured.
+
+
+## Global Site Settings Integration
+
+The public website now retrieves global branding and contact information through the SiteSettings context processor.
+
+Currently integrated:
+
+- Header branding
+- Footer branding
+- Homepage hero
+
+These templates gracefully fall back to placeholder content whenever SiteSettings values have not yet been configured.
