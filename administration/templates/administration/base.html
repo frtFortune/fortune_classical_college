@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Administration{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/administration.css' %}">
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <aside class="sidebar">
+
+        <h2>Administration</h2>
+
+        <nav>
+
+            <a href="{% url 'administration:dashboard' %}">Dashboard</a>
+
+            <a href="{% url 'administration:students' %}">Students</a>
+
+            <a href="{% url 'administration:classes' %}">Classes</a>
+
+            <a href="{% url 'administration:subjects' %}">Subjects</a>
+
+            <a href="{% url 'administration:teachers' %}">Teachers</a>
+
+            <a href="{% url 'administration:results' %}">Results</a>
+
+            <a href="{% url 'administration:external_results' %}">External Results</a>
+
+            <a href="{% url 'administration:admissions' %}">Admissions</a>
+
+            <a href="{% url 'administration:settings' %}">Settings</a>
+
+        </nav>
+
+    </aside>
+
+    <main class="content">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</div>
+
+</body>
+</html>
